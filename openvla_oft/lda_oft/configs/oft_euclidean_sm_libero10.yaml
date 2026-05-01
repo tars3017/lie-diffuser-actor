@@ -1,0 +1,34 @@
+# OpenVLA-OFT + Euclidean Score Matching (SE3ScoreMatchingActionHead with lie_group=False)
+# Reproduces row 2 (93.87) of the rebuttal table. No public ckpt — train from scratch.
+variant: euclidean_sm
+task_suite: libero_10
+unnorm_key: libero_10_no_noops
+
+# Model / head
+vla_path: openvla/openvla-7b
+use_l1_regression: false
+use_diffusion: false
+use_se3_score_matching: true
+score_matching_lie_group: false           # ← Euclidean ablation
+num_se3_steps_train: 100
+num_se3_steps_inference: 100
+use_film: false
+num_images_in_input: 2
+use_proprio: true
+
+# LoRA
+use_lora: true
+lora_rank: 32
+lora_dropout: 0.0
+
+# Train
+batch_size: 4
+learning_rate: 5e-4
+num_steps_before_decay: 100000
+max_steps: 150005
+save_freq: 10000
+image_aug: true
+
+# Eval
+center_crop: true
+num_trials_per_task: 50

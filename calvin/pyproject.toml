@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lda-calvin"
+version = "0.1.0"
+description = "Lie Diffuser Actor — CALVIN experiments (ICML 2026)"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8,<3.11"
+dependencies = [
+    "numpy>=1.21,<2",
+    "torch==2.0.1",
+    "torchvision==0.15.2",
+    "torchaudio==2.0.2",
+    "diffusers>=0.20",
+    "transformers>=4.30",
+    "einops",
+    "PyYAML",
+    "tqdm",
+    "huggingface_hub",
+    "typed-argument-parser",
+    "blosc",
+    "scikit-learn",
+    "tensorboard",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7",
+    "ipython",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["lda*"]

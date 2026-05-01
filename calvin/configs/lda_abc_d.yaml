@@ -1,0 +1,53 @@
+# Lie Diffuser Actor — main method, CALVIN ABC->D (paper Table 1, bold row).
+# Released abc_gat_score_newloss_300k.pth reproduces SR1=92.3 / AvgLen=3.486 on the 1000-seq protocol.
+
+# Dataset
+dataset: ./data/calvin/packaged_ABC_D_full/training/
+valset: ./data/calvin/packaged_ABC_D_full/validation/
+instructions: instructions/calvin_task_ABC_D/
+gripper_loc_bounds: ../tasks/calvin_rel_traj_location_bounds_task_ABC_D.json
+gripper_loc_bounds_buffer: 0.01
+
+# Tasks / split
+tasks: A B C D
+training_split: ABC               # ABC = train on A/B/C, eval on D (zero-shot)
+relative_action: 1
+fps_subsampling_factor: 3
+lang_enhanced: 1
+quaternion_format: wxyz
+
+# Architecture
+backbone: clip
+embedding_dim: 192
+image_size: 256,256
+num_history: 3
+use_instruction: 1
+rotation_parametrization: 6D
+diffusion_timesteps: 100
+
+# Ablation flags (this row is the full method)
+use_gat: 1
+diffusion_space: lie
+loss_formulation: new
+
+# Training
+train_iters: 300000
+batch_size: 4
+batch_size_val: 1
+num_workers: 64
+max_episode_length: 30
+dense_interpolation: 1
+interpolation_length: 20
+lr: 3.0e-4
+end_lr: 3.0e-5
+lr_decay: 0.1
+wd: 5.0e-3
+val_freq: 5000
+val_iters: 2
+cache_size: 0
+cache_size_val: 0
+keypose_only: 0
+
+# Logging
+exp_log_dir: Planner_Calvin
+run_log_dir: lda_abc_d

@@ -1,0 +1,49 @@
+# LDA w/o Lie Diffusion — CALVIN ABC->D (paper Table 1, ablation row).
+# Source branch: gat-ddpm-2enc. Replaces SE(3)-tangent score matching with vanilla DDPM.
+# Reproduces SR1=90.2, AvgLen=3.474 with abc_gat_ddpm_300k.pth.
+
+dataset: ./data/calvin/packaged_ABC_D_full/training/
+valset: ./data/calvin/packaged_ABC_D_full/validation/
+instructions: instructions/calvin_task_ABC_D/
+gripper_loc_bounds: ../tasks/calvin_rel_traj_location_bounds_task_ABC_D.json
+gripper_loc_bounds_buffer: 0.01
+
+tasks: A B C D
+training_split: ABC
+relative_action: 1
+fps_subsampling_factor: 3
+lang_enhanced: 1
+quaternion_format: wxyz
+
+backbone: clip
+embedding_dim: 192
+image_size: 256,256
+num_history: 3
+use_instruction: 1
+rotation_parametrization: 6D
+diffusion_timesteps: 100
+
+# Ablation: Euclidean DDPM instead of Lie-tangent score matching
+use_gat: 1
+diffusion_space: euclidean
+loss_formulation: new
+
+train_iters: 300000
+batch_size: 4
+batch_size_val: 1
+num_workers: 64
+max_episode_length: 30
+dense_interpolation: 1
+interpolation_length: 20
+lr: 3.0e-4
+end_lr: 3.0e-4                    # constant lr throughout (matches released abc_gat_ddpm_300k.pth)
+lr_decay: 1.0                     # disables the step@200K decay; trainer uses MultiStepLR with this gamma
+wd: 5.0e-3
+val_freq: 5000
+val_iters: 2
+cache_size: 0
+cache_size_val: 0
+keypose_only: 0
+
+exp_log_dir: Planner_Calvin
+run_log_dir: ablation_no_lie_abc_d

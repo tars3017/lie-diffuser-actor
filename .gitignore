@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.mypy_cache/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Data and checkpoints (downloaded by users, never tracked)
+# Only ignore at repo-root or directly under calvin/ / openvla_oft/ — NOT lda/data/
+# (source package). No trailing slash so the patterns also match symlinks pointing
+# at shared NFS paths.
+/data
+/calvin/data
+/openvla_oft/data
+/ckpts
+/calvin/ckpts
+/openvla_oft/ckpts
+/instructions
+/calvin/instructions
+# Vendored upstream simulator + dataset; users either run setup_calvin.sh or
+# symlink an existing checkout (see calvin/README.md § 1).
+/third_party/calvin
+# LIBERO simulator clone for openvla_oft (see openvla_oft/scripts/setup_libero.sh)
+/openvla_oft/LIBERO
+*.pth
+*.pkl
+*.safetensors
+
+# Weights & Biases (openvla-oft trains with wandb)
+wandb/
+
+# openvla-oft eval-time runtime dirs (run_libero_eval writes these into cwd)
+/openvla_oft/experiments/logs/
+/openvla_oft/rollouts/
+
+# pip install -e .  build artifacts (sibling-specific egg-infos)
+/openvla_oft/lda_oft.egg-info/
+/openvla_oft/*.egg-info/
+
+# Logs
+train_logs/
+eval_logs/
+output/
+output*
+
+# Media (paper assets only allowed under docs/static/)
+*.mp4
+*.jpg
+*.png
+!docs/static/**
+
+# OS
+.DS_Store
+._*
+*.swp
+
+# Env
+.env
+.envrc
+
+# Local Claude Code session state
+.claude/

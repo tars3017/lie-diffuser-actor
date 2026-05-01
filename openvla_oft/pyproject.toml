@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lda-oft"
+version = "0.1.0"
+description = "Lie Diffuser Actor — OpenVLA-OFT LIBERO-Long experiments (ICML 2026)"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10,<3.11"
+dependencies = [
+    "numpy<2",                                # torch 2.2.0 wheels were built against numpy 1.x; numpy 2 breaks all torch.* imports
+    "accelerate>=0.25.0",
+    "diffusers==0.30.3",                      # DDIMScheduler in prismatic/models/action_heads.py
+    "draccus==0.8.0",
+    "einops",
+    "huggingface_hub",
+    "json-numpy",
+    "jsonlines",
+    "matplotlib",
+    "peft==0.11.1",
+    "protobuf",
+    "rich",
+    "sentencepiece==0.1.99",
+    "timm==0.9.10",
+    "tokenizers==0.19.1",
+    "torch==2.2.0",
+    "torchvision==0.17.0",
+    "torchaudio==2.2.0",
+    "transformers @ git+https://github.com/moojink/transformers-openvla-oft.git",
+    "tensorflow==2.15.0",                     # required by prismatic.vla.datasets.rlds (TF-graph-based data pipeline)
+    "tensorflow_datasets==4.9.3",
+    "tensorflow_graphics==2021.12.3",
+    "dlimp @ git+https://github.com/moojink/dlimp_openvla",
+    "wandb",
+    "PyYAML",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7",
+    "ipython",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["lda_oft*", "prismatic*"]

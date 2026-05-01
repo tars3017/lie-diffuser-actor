@@ -1,0 +1,18 @@
+name: lda-oft
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - cmake
+  - ninja
+  - pip:
+      - -e .
+# After `conda env create -f environment.yaml`:
+#   bash scripts/setup_libero.sh
+#   # then install flash-attn from the Dao-AILab prebuilt wheel
+#   # (compiling from source needs CUDA toolkit + nvcc, which most boxes don't have)
+#   pip install "https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.5/flash_attn-2.5.5+cu122torch2.2cxx11abiFALSE-cp310-cp310-linux_x86_64.whl"
+#   pip install "numpy<2"   # libero_requirements.txt re-upgrades numpy; pin back
