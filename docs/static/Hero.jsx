@@ -19,7 +19,10 @@ function Hero() {
   ];
   return (
     <header id="top" className="lda-hero">
-      <div className="lda-eyebrow">ICML 2026</div>
+      <div className="lda-eyebrow lda-venue">
+        <img src="https://icml.cc/static/core/img/icml-navbar-logo.svg" alt="ICML" />
+        <span>2026</span>
+      </div>
 
       <h1 className="lda-title">
         The Lie We Tell:<br/>
@@ -43,6 +46,7 @@ function Hero() {
       </div>
 
       <div className="lda-lab">
+        <img src="https://www.ntu.edu.tw/images/about/emblem_1.png" alt="National Taiwan University" />
         <img src="https://elsalab.ai/imgs/icons/elsa-lab.png" alt="ELSA Lab" />
       </div>
 

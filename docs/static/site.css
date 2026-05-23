@@ -72,6 +72,16 @@ body { margin: 0; }
   display: inline-block;
   margin-bottom: var(--s-5);
 }
+.lda-venue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.lda-venue img {
+  height: 22px;
+  width: auto;
+  display: block;
+}
 .lda-eyebrow {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -136,6 +146,8 @@ body { margin: 0; }
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: var(--s-5);
+  flex-wrap: wrap;
 }
 .lda-lab img {
   height: 44px;

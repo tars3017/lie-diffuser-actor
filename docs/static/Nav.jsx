@@ -11,7 +11,7 @@ function Nav() {
   return (
     <nav className="lda-nav">
       <a href="#top" className="lda-mark" onClick={() => setHash('#top')}>
-        Lie Diffuser Actor<sup>ICML&nbsp;'26</sup>
+        Lie Diffuser Actor
       </a>
       <div className="lda-nav-links">
         {items.map(it => (
