@@ -72,13 +72,35 @@ body { margin: 0; }
   display: inline-block;
   margin-bottom: var(--s-5);
 }
-.lda-venue {
+.lda-marks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+  margin-bottom: var(--s-6);
+}
+.lda-mark-emblem {
+  height: 64px;
+  width: auto;
+  display: block;
+  opacity: 0.95;
+}
+.lda-mark-venue {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #1f1f1f;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: var(--tracking-mono);
 }
-.lda-venue img {
-  height: 22px;
+.lda-mark-venue img {
+  height: 28px;
   width: auto;
   display: block;
 }
@@ -140,20 +162,6 @@ body { margin: 0; }
   text-align: center;
 }
 .lda-affil sup { font-size: 11px; color: var(--accent); margin-right: 2px; font-weight: 500; }
-
-.lda-lab {
-  margin-top: var(--s-5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--s-5);
-  flex-wrap: wrap;
-}
-.lda-lab img {
-  height: 44px;
-  width: auto;
-  opacity: 0.95;
-}
 
 .lda-actions {
   display: flex;

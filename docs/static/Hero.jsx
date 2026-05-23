@@ -19,9 +19,13 @@ function Hero() {
   ];
   return (
     <header id="top" className="lda-hero">
-      <div className="lda-eyebrow lda-venue">
-        <img src="https://icml.cc/static/core/img/icml-navbar-logo.svg" alt="ICML" />
-        <span>2026</span>
+      <div className="lda-marks">
+        <img className="lda-mark-emblem" src="https://www.ntu.edu.tw/images/about/emblem_1.png" alt="National Taiwan University" />
+        <img className="lda-mark-emblem" src="https://elsalab.ai/imgs/icons/elsa-lab.png" alt="ELSA Lab" />
+        <span className="lda-mark-venue">
+          <img src="https://icml.cc/static/core/img/icml-navbar-logo.svg" alt="ICML" />
+          <span>2026</span>
+        </span>
       </div>
 
       <h1 className="lda-title">
@@ -43,11 +47,6 @@ function Hero() {
         <div><sup>2</sup>Institute of Artificial Intelligence Innovation, National Yang Ming Chiao Tung University, Hsinchu, Taiwan</div>
         <div><sup>3</sup>Department of Electrical Engineering, National Tsing Hua University, Hsinchu, Taiwan</div>
         <div style={{marginTop: 'var(--s-2)'}}><sup>*</sup>Equal contribution.</div>
-      </div>
-
-      <div className="lda-lab">
-        <img src="https://www.ntu.edu.tw/images/about/emblem_1.png" alt="National Taiwan University" />
-        <img src="https://elsalab.ai/imgs/icons/elsa-lab.png" alt="ELSA Lab" />
       </div>
 
       <div className="lda-actions">
