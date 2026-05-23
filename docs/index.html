@@ -20,7 +20,7 @@
   <script type="text/babel" src="static/Section.jsx"></script>
   <script type="text/babel" src="static/Figure.jsx"></script>
   <script type="text/babel" src="static/Video.jsx?v=2"></script>
-  <script type="text/babel" src="static/ResultsTable.jsx?v=2"></script>
+  <script type="text/babel" src="static/ResultsTable.jsx?v=3"></script>
   <script type="text/babel" src="static/RobotGrid.jsx?v=3"></script>
   <script type="text/babel" src="static/BibTeX.jsx"></script>
   <script type="text/babel" src="static/Footer.jsx"></script>
@@ -36,7 +36,7 @@
             <Hero />
 
             {/* Abstract */}
-            <Section id="abstract" eyebrow="§1 · Abstract" title="Diffusion-based VLA policies commit a fundamental geometric error.">
+            <Section id="abstract" eyebrow="1 · Abstract" title="Diffusion-based VLA policies commit a fundamental geometric error.">
               <p className="lead">
                 Diffusion-based Vision-Language-Action policies achieve remarkable success in robotic manipulation, yet commit a fundamental geometric error we term the <em>Euclidean Fallacy</em>: representing <span className="glyph">SE(3)</span> poses as flat <span className="glyph">ℝ¹²</span> vectors.
               </p>
@@ -49,7 +49,7 @@
             </Section>
 
             {/* Overview cover */}
-            <Section eyebrow="Overview" title="One minute overview.">
+            <Section eyebrow="Overview">
               <img
                 src="static/figures/cover_image.png"
                 alt="The Lie We Tell — overview cover"
@@ -59,7 +59,7 @@
             </Section>
 
             {/* Method */}
-            <Section id="method" eyebrow="§4 · Method" title="Diffuse on the manifold, not its embedding.">
+            <Section id="method" eyebrow="2 · Method" title="Diffuse on the manifold, not its embedding.">
               <p>
                 Standard diffusion defines forward noising as <span className="glyph">x<sub>t</sub> = x<sub>0</sub> + σ<sub>t</sub> ε</span>, with <span className="glyph">ε ∼ 𝒩(0, I)</span>. This is invalid on <span className="glyph">SE(3)</span>: vector addition is undefined on a curved manifold. We instead define the forward process as a left-invariant SDE on the Lie group, perturbing poses multiplicatively through the exponential map: <span className="glyph">g<sub>t</sub> = g<sub>0</sub> · exp(σ<sub>t</sub> ω)</span>, where <span className="glyph">ω ∼ 𝒩(0, I<sub>6</sub>) ∈ se(3)</span>.
               </p>
@@ -127,7 +127,7 @@
             </Section>
 
             {/* Results */}
-            <Section id="results" eyebrow="§5 · Results" title="Long-horizon CALVIN.">
+            <Section id="results" eyebrow="3 · Long-Horizon CALVIN" title="Long-horizon CALVIN.">
               <p>
                 On the zero-shot ABC→D protocol, intrinsic Lie diffusion and the geometry-aware GAT encoder are <em>independently</em> effective. The full Lie Diffuser Actor — both modifications combined — outperforms the baseline across all five sub-tasks.
               </p>
@@ -138,8 +138,25 @@
               </Figure>
             </Section>
 
+            {/* Simulation rollouts */}
+            <Section id="calvin-rollouts" eyebrow="Rollouts" title="CALVIN benchmark rollouts.">
+              <p>
+                Four representative chain-success rollouts from CALVIN ABC→D. Each video chains five language-conditioned subtasks executed by Lie Diffuser Actor on the held-out D environment.
+              </p>
+              <div className="lda-calvin-row">
+                {[1, 10, 11, 14].map(n => (
+                  <div className="lda-calvin-cell" key={n}>
+                    <video
+                      src={`static/videos/calvin_seq${n}.mp4`}
+                      autoPlay muted loop playsInline preload="metadata"
+                    />
+                  </div>
+                ))}
+              </div>
+            </Section>
+
             {/* Real Robot */}
-            <Section id="realrobot" eyebrow="§5.3 · Real Robot" title="Deployed on a real arm.">
+            <Section id="realrobot" eyebrow="4 · Real Robot" title="Deployed on a real arm.">
               <p>
                 Across four manipulation tasks spanning coarse transport to fine assembly, LDA delivers superior performance where geometric fidelity matters most: perfect success on Move Doll Platform, and substantial gains on Sort Blocks and Stack Cups, where precise orientation control is critical.
               </p>

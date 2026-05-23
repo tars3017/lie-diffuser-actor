@@ -1,10 +1,10 @@
 // ResultsTable.jsx — CALVIN results table.
 function ResultsTable() {
   const rows = [
-    { method: '3D Diffuser Actor (600K)', vals: [92.2, 78.7, 63.9, 51.2, 41.2], avg: 3.27, ours: false, baseline: true },
-    { method: 'LDA w/o GAT Encoder',      vals: [88.5, 75.3, 63.2, 53.6, 44.8], avg: 3.25, ours: false },
-    { method: 'LDA w/o Lie Diffusion',    vals: [90.2, 80.3, 69.6, 58.5, 48.8], avg: 3.47, ours: false },
-    { method: 'Lie Diffuser Actor (ours)',vals: [93.7, 83.4, 70.3, 57.6, 46.2], avg: 3.51, ours: true },
+    { method: '3D Diffuser Actor (600K)',           vals: [92.2, 78.7, 63.9, 51.2, 41.2], avg: 3.270, ours: false, baseline: true },
+    { method: 'LDA (600K) w/o GAT Encoder',         vals: [89.6, 78.0, 66.6, 55.7, 46.9], avg: 3.368, ours: false },
+    { method: 'LDA (300K) w/o Lie Diffusion',       vals: [90.2, 80.3, 69.6, 58.5, 48.8], avg: 3.474, ours: false },
+    { method: 'Lie Diffuser Actor (300K)',          vals: [93.7, 83.4, 70.3, 57.6, 46.2], avg: 3.512, ours: true },
   ];
   return (
     <div className="lda-table-wrap">
