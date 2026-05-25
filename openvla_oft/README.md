@@ -41,8 +41,6 @@ conda activate lda-oft
 pip install "https://github.com/Dao-AILab/flash-attention/releases/download/v2.5.5/flash_attn-2.5.5+cu122torch2.2cxx11abiFALSE-cp310-cp310-linux_x86_64.whl"
 ```
 
-`environment.yaml` declares Python 3.10 + cmake + ninja; the rest comes from `pyproject.toml` (torch 2.2.0, transformers fork, peft 0.11.1, draccus 0.8.0, …).
-
 ## 2. LIBERO simulator + dataset (one-time)
 
 ```bash
@@ -88,8 +86,6 @@ bash scripts/train.sh lda_oft/configs/oft_lie_sm_libero10.yaml \
     --wandb_entity <your-entity> --wandb_project openvla-oft
 ```
 
-The wrapper translates the YAML into `vla-scripts/finetune.py` flags and re-executes via `runpy`. 150 K steps at batch 4 / GPU on 4 GPUs takes about 40 hours on L40. Swap the config path for `oft_baseline_libero10.yaml` or `oft_euclidean_sm_libero10.yaml` to train the other variants.
-
 ## 6. Run the test suite
 
 ```bash
@@ -97,20 +93,3 @@ pytest tests/ -v
 ```
 
 The CPU action-head ckpt-compat gate (`tests/test_ckpt_compat.py`) skips per-pair when the corresponding local ckpt isn't present, so the passing count depends on which ckpts you've downloaded / trained.
-
-## 7. Configuration reference
-
-| YAML key | Type | Notes |
-|---|---|---|
-| `variant` | str | One of `baseline` / `euclidean_sm` / `lie_sm`; informational only. |
-| `task_suite` | str | `libero_10` everywhere in this release. |
-| `unnorm_key` | str | `libero_10_no_noops` everywhere. |
-| `vla_path` | str | Base VLA — `openvla/openvla-7b`. |
-| `use_l1_regression` | bool | Baseline action head. |
-| `use_se3_score_matching` | bool | Score-matching action head (Lie or Euclidean). |
-| `score_matching_lie_group` | bool | Only when `use_se3_score_matching`: `true` = SE(3) Lie, `false` = flat ℝ⁶ Euclidean. |
-| `num_se3_steps_train` / `num_se3_steps_inference` | int | 100 / 100 for both SM variants. |
-| `use_lora` / `lora_rank` / `lora_dropout` | bool / int / float | LoRA r=32, dropout 0.0. |
-| `batch_size` / `learning_rate` / `max_steps` | int / float / int | 4 / 5e-4 / 150 005 for all variants. |
-| `num_images_in_input` / `use_proprio` | int / bool | 2 + proprio. |
-| `center_crop` / `num_trials_per_task` | bool / int | Eval-only — 50 trials × 10 LIBERO tasks. |

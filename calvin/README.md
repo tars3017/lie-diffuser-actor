@@ -25,15 +25,13 @@ pip install torch-scatter -f https://data.pyg.org/whl/torch-2.0.0+cu118.html
 
 ### 1a. Install the CALVIN packages
 
-`third_party/calvin/install.sh` from upstream pins `cmake==3.18.4` (yanked) and `MulticoreTSNE` (won't build on modern toolchains), so install the three packages by hand instead:
-
 ```bash
 pip install -e third_party/calvin/calvin_env/tacto
 pip install -e third_party/calvin/calvin_env
-pip install -e third_party/calvin/calvin_models --no-deps   # skip MulticoreTSNE; runtime deps already in lda-calvin
-pip install pyhash                                          # one calvin_models runtime dep we still need
-pip install -U "networkx>=3.0"                              # tacto regresses networkx to 2.2; restore the np.int-safe version
-pip install --force-reinstall --no-deps "numpy==1.23.5"     # calvin_models can pull numpy 1.24, which removes np.float and breaks tacto
+pip install -e third_party/calvin/calvin_models --no-deps  
+pip install pyhash                                         
+pip install -U "networkx>=3.0"                             
+pip install --force-reinstall --no-deps "numpy==1.23.5"    
 ```
 
 Verify the env with `pytest tests/ -v` from this dir.
@@ -48,7 +46,7 @@ NUM_WORKERS=16 SPLIT=ABC bash scripts/setup_calvin.sh   # tune to your host
 This script (in order):
 1. Clones the CALVIN simulator (vendored under `../third_party/calvin/`). Skips if a clone or symlink is already there. **Does not run upstream's `install.sh`** — that pins yanked deps; do § 1a instead.
 2. Downloads the raw `task_${SPLIT}_D` dataset (~500GB).
-3. Downloads precomputed CLIP instruction embeddings (`instructions/`) from `huggingface.co/katefgroup/3d_diffuser_actor` (a few hundred MB, much faster than re-encoding).
+3. Downloads precomputed CLIP instruction embeddings (`instructions/`) from `huggingface.co/katefgroup/3d_diffuser_actor` 
 4. Runs `python scripts/package_calvin.py --num_workers $NUM_WORKERS` to render the raw episodes into `data/calvin/packaged_${SPLIT}_D_full/{training,validation}`. The packager uses a `multiprocessing.Pool` of `NUM_WORKERS` PyBullet sims (default ≈ half your cores) — each annotation is independent, so wallclock scales close to linearly. Expect roughly `(17 870 annotations × ~1-2 s/annotation) / NUM_WORKERS` for ABC training; on a 16-core box that's ~30-60 minutes.
 
 If you need to re-encode instructions from scratch (e.g. the `instructions.zip` cache is unreachable):
@@ -106,8 +104,6 @@ NUM_SEQUENCES=2 NGPUS=1 bash scripts/eval.sh configs/lda_abc_d.yaml ckpts/abc_ga
 NGPUS=8 bash scripts/train.sh configs/lda_abc_d.yaml
 ```
 
-Training takes ~2 days on 8× L40 for 300K iterations (batch 4 per GPU). The no-GAT ABC->D ablation trains for 600K iters; the other five rows are 300K (set in the configs).
-
 ## 6. Run the test suite
 
 ```bash
@@ -118,16 +114,3 @@ pytest tests/ -v
 - `test_config.py` — YAML loader behaves correctly.
 - `test_ckpt_compat.py` — every paper-table checkpoint loads under the corresponding config (only meaningful after `scripts/download_ckpts.sh`).
 - `test_forward_smoke.py` — single-GPU end-to-end forward smoke for every released ckpt.
-
-## 7. Configuration reference
-
-Configs are flat YAML files in `configs/`. Four flags express the experimental conditions:
-
-| Flag | Values | Meaning |
-|---|---|---|
-| `use_gat` | `0`, `1` | 1 = use GAT encoder (paper main); 0 = ablate it |
-| `diffusion_space` | `lie`, `euclidean` | `lie` = score matching on SE(3) tangent (paper main); `euclidean` = standard DDPM (ablation "w/o Lie Diffusion") |
-| `loss_formulation` | `new`, `old` | `new` = paper's corrected loss; `old` = earlier formulation (only used by supplementary `oldloss` ckpt) |
-| `training_split` | `ABC`, `ABCD` | `ABC` = train on tasks A/B/C only, eval D zero-shot; `ABCD` = train on merged ABC+D set (triggers +17870 instr-index offset for D) |
-
-All other flags (lr, batch size, etc.) are training hyperparameters mirroring paper Appendix B.
