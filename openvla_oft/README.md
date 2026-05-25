@@ -88,7 +88,7 @@ bash scripts/train.sh lda_oft/configs/oft_lie_sm_libero10.yaml \
     --wandb_entity <your-entity> --wandb_project openvla-oft
 ```
 
-The wrapper translates the YAML into `vla-scripts/finetune.py` flags and re-executes via `runpy`. 150 K steps at batch 4 / GPU on 4 GPUs takes about 36 hours on A6000-class hardware. Swap the config path for `oft_baseline_libero10.yaml` or `oft_euclidean_sm_libero10.yaml` to train the other variants.
+The wrapper translates the YAML into `vla-scripts/finetune.py` flags and re-executes via `runpy`. 150 K steps at batch 4 / GPU on 4 GPUs takes about 40 hours on L40. Swap the config path for `oft_baseline_libero10.yaml` or `oft_euclidean_sm_libero10.yaml` to train the other variants.
 
 ## 6. Run the test suite
 
