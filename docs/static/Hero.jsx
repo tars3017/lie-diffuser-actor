@@ -50,7 +50,7 @@ function Hero() {
       </div>
 
       <div className="lda-actions">
-        <ActionButton primary icon="file-text" label="Paper (arXiv soon)" disabled title="arXiv link will be added after the camera-ready release" />
+        <ActionButton primary icon="file-text" label="Paper" href="https://arxiv.org/abs/2606.01847" />
         <ActionButton icon="code" label="Code" href="https://github.com/tars3017/lie-diffuser-actor" />
         <ActionButton icon="quote" label="BibTeX" href="#bibtex" />
       </div>
