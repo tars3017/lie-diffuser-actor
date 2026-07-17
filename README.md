@@ -21,7 +21,20 @@ This codebase builds directly on three upstream projects; please cite them along
 
 ## Citation
 
-*To be added once the paper is publicly available.*
+If you find this work useful, please cite:
+
+```bibtex
+@inproceedings{chuang2026lie,
+  title     = {The Lie We Tell: Correcting the Euclidean Fallacy in Vision Language Action Policies via Score Matching on Tangent Space},
+  author    = {Chuang, Bing-Cheng and Chu, I-Hsuan and Lin, Bor-Jiun and Yang, YuanFu and Sun, Min and Lee, Chun-Yi},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning (ICML)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {306},
+  publisher = {PMLR},
+  address   = {Seoul, South Korea},
+  year      = {2026}
+}
+```
 
 ## License
 
