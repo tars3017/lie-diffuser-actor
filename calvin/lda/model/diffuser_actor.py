@@ -856,6 +856,12 @@ class DiffusionHead(nn.Module):
         adaln_gripper_feats = einops.rearrange(
             adaln_gripper_feats, 'b l c -> l b c'
         )
+        # The language cross-attention in prediction_head treats its context as
+        # sequence-first (L, B, F), like the other inputs above. Passing the
+        # batch-first (B, L, F) tensor is harmless for B = 1 but mixes language
+        # tokens across samples for B > 1.
+        if instr_feats is not None:
+            instr_feats = einops.rearrange(instr_feats, 'b l c -> l b c')
         pos_pred, rot_pred, openess_pred = self.prediction_head(
             trajectory[..., :3], traj_feats,
             context[..., :3], context_feats,
@@ -884,7 +890,7 @@ class DiffusionHead(nn.Module):
             curr_gripper_features: A tensor of shape (M, B, F)
             sampled_context_features: A tensor of shape (K, B, F)
             sampled_rel_context_pos: A tensor of shape (B, K, F, 2)
-            instr_feats: (B, max_instruction_length, F)
+            instr_feats: (max_instruction_length, B, F)
         """
         # Diffusion timestep
         time_embs = self.encode_denoising_timestep(
